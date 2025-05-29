@@ -162,8 +162,14 @@
                             style="height: 24px; width: 70px; text-align: right;" readonly="">
                     </td>
                 </tr>
+
             </tbody>
         </table>
+
+        <div class="card text-danger m-3 pl-3 pr-3 p-2" style="background-color: #ffdada;" id="no_items"
+            style="display: none;">
+            <strong>No hay prendas en la factura.</strong>
+        </div>
 
         <div class="row mr-0">
 
@@ -448,6 +454,7 @@ Argentina</textarea>
         const subtotal = document.getElementById('subtotal');
         const envio = document.getElementById('shipcost');
         const total = document.getElementById('total');
+        const no_items = document.getElementById('no_items');
         var currentImageIndex = 0;
         var contador = 2;
 
@@ -537,6 +544,9 @@ Argentina</textarea>
 
         function recalcularTotal() {
             let cuenta = 0;
+            let prendas = body.children.length;
+
+            no_items.style.display = prendas == 0 ? 'block' : 'none';
 
             for (let i = 1; i < contador + 1; i++) {
                 let item = document.getElementById('total_' + i);
