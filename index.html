@@ -470,7 +470,7 @@ Argentina</textarea>
 
 
             let year = val.split('-')[0];
-            let month = meses[parseInt(val.split('-')[1])];
+            let month = meses[parseInt(val.split('-')[1]) - 1];
             let day = val.split('-')[2];
 
             let escrito = day + " de " + month + " de " + year;
@@ -562,8 +562,6 @@ Argentina</textarea>
                     document.getElementById('imagen_' + i).style.opacity = total_items > 1 ? 1 : 0.5;
                 }
             }
-
-
 
 
             subtotal.innerHTML = cuenta.toFixed(2);
