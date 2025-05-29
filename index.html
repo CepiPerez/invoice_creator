@@ -41,6 +41,10 @@
             padding-left: 16px !important;
         }
 
+        .trash-icon {
+            cursor: pointer;
+        }
+
         @media print {
 
             .only-print {
@@ -137,8 +141,8 @@
                             onclick="abrirModalImagen(1)" data-url="" id="imagen_1">
                     </td> -->
                     <td style="width:40px;" class="no-print">
-                        <img src="trash.png" style="height:28px;width:28px;padding:.25rem;cursor:pointer;"
-                            onclick="eliminarArticulo(1)" id="imagen_1" />
+                        <img src="trash.png" style="height:28px;width:28px;padding:.25rem;"
+                            onclick="eliminarArticulo(1)" id="imagen_1" class="trash-icon" />
                     </td>
                     <td class="description">
                         <div class="row mt-1">
@@ -168,7 +172,7 @@
 
         <div class="card text-danger m-3 pl-3 pr-3 p-2" style="background-color: #ffdada;" id="no_items"
             style="display: none;">
-            <strong>No hay prendas en la factura.</strong>
+            <strong>No hay prendas en el pedido! Es necesario agregar al menos una.</strong>
         </div>
 
         <div class="row mr-0">
@@ -500,8 +504,8 @@ Argentina</textarea>
             */
 
             item.innerHTML = `<td style="width:40px;" class="no-print">
-                    <img src="trash.png" style="height:28px;width:28px;padding:.25rem;cursor:pointer;"
-                        onclick="eliminarArticulo(` + contador + `)" data-url="" id="imagen_` + contador + `"/>
+                    <img src="trash.png" style="height:28px;width:28px;padding:.25rem;"
+                        onclick="eliminarArticulo(` + contador + `)" id="imagen_` + contador + `" class="trash-icon"/>
                 </td>
                 <td class="description">
                     <div class="row mt-1">
@@ -545,6 +549,7 @@ Argentina</textarea>
         function recalcularTotal() {
             let cuenta = 0;
             let prendas = body.children.length;
+            let total_items = body.children.length;
 
             no_items.style.display = prendas == 0 ? 'block' : 'none';
 
@@ -553,8 +558,12 @@ Argentina</textarea>
                 if (item) {
                     let itemtotal = item.value;
                     cuenta = parseFloat(cuenta) + parseFloat(itemtotal);
+                    document.getElementById('imagen_' + i).style.pointerEvents = total_items > 1 ? 'all' : 'none';
                 }
             }
+
+
+
 
             subtotal.innerHTML = cuenta.toFixed(2);
 
