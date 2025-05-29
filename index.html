@@ -29,6 +29,10 @@
             display: none !important;
         }
 
+        .goods-head {
+            padding-left: 1.25rem !important;
+        }
+
         .subtotal-head {
             padding-right: 0 !important;
         }
@@ -57,12 +61,17 @@
                 background-color: white;
             }
 
+            .goods-head {
+                padding-left: 2rem !important;
+            }
+
             .subtotal-head {
-                padding-right: 1.5rem !important;
+                padding-right: 1rem !important;
             }
 
             .description {
                 padding-left: 32px !important;
+                column-span: 1;
             }
 
         }
@@ -115,7 +124,7 @@
         <table class="table mt-2" style="border-bottom: 1px solid lightgray;">
             <thead class="custom-head">
                 <tr>
-                    <th colspan="2" style="padding-left: 1rem;">Goods</th>
+                    <th colspan="2" class="goods-head">Goods</th>
                     <th class="text-center">Qty</th>
                     <th class="text-center">Price</th>
                     <th class="text-center subtotal-head" colspan="2">Subtotal</th>
@@ -138,6 +147,7 @@
                             <input class="col-12 text-secondary" type="text" value="Size: XL" style="height: 24px;">
                         </div>
                     </td>
+                    <td class="only-print"></td>
                     <td style="width:50px; padding-top: 1rem;">
                         <input type="number" id="cantidad_1" value="1" min="1"
                             style="height: 24px; width: 70px; text-align: right;" onchange="recalcular(1)">
@@ -492,6 +502,7 @@ Argentina</textarea>
                     <input class="col-12 text-secondary" type="text" value="Size: XL" style="height: 24px;" />
                     </div>
                 </td>
+                <td class="only-print"></td>
                 <td style="width:50px; padding-top: 1rem;">
                     <input type="number" id="cantidad_`+ contador + `" value="1" min="1" style="height: 24px; width: 70px; text-align: right;" onchange="recalcular(` + contador + `)"/>
                 </td>
@@ -519,6 +530,7 @@ Argentina</textarea>
             let cantidad = document.getElementById('cantidad_' + indice).value;
             let precio = document.getElementById('precio_' + indice).value;
             let total = cantidad * precio;
+            document.getElementById('precio_' + indice).value = parseFloat(precio).toFixed(2);
             document.getElementById('total_' + indice).value = total.toFixed(2);
             recalcularTotal();
         }
