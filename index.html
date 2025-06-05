@@ -37,11 +37,26 @@
             padding-right: 0 !important;
         }
 
-        .description {
-            padding-left: 16px !important;
+        .item-image {
+            padding-left: 0 !important;
         }
 
         .trash-icon {
+            cursor: pointer;
+        }
+
+        .logo-imagen {
+            cursor: pointer;
+            height: 60px;
+            object-fit: contain;
+            padding: .5rem;
+        }
+
+        .img-btn {
+            height: 60px;
+            width: 60px;
+            object-fit: cover;
+            border: 1px solid darkgray;
             cursor: pointer;
         }
 
@@ -73,7 +88,7 @@
                 padding-right: 1rem !important;
             }
 
-            .description {
+            .item-image {
                 padding-left: 32px !important;
                 column-span: 1;
             }
@@ -89,7 +104,7 @@
 
     <div class="card container mt-4 no-print" style="background-color: #ffdada;">
         <h5 class="mt-3 mb-3 text-danger" style="line-height: 2rem;">
-            <b>Todos los textos en color amarillo son editables. </b><br>
+            <b>Todos los campos en color amarillo son editables. </b><br>
             Una vez que termines de editar usá la funcion de imprimir del navegador.
         </h5>
         <span class="mb-3">Los mensajes y botones se ocultan automaticamente al imprimir</span>
@@ -99,8 +114,9 @@
     <div class="container mt-4 border p-0 page">
 
         <div class="d-flex justify-content-between">
-            <div class="ml-3 mt-3">
-                <img src="https://us03-imgcdn.ymcart.com/45427/2020/09/13/2/b/2b68ab46ab7fd3f3.png" width="220px">
+            <div class="ml-3 mt-3" style="background-color: #ffffa1; padding: .25rem;">
+                <img src="proveedor_kitmm.png" height="68" style="cursor:pointer;" onclick="cambiarLogo()"
+                    id="logo_img">
             </div>
             <div class="mt-3 mr-3">
                 <div class="d-flex justify-content-end" style="font-weight: 600;">
@@ -128,7 +144,7 @@
         <table class="table mt-2" style="border-bottom: 1px solid lightgray;">
             <thead class="custom-head">
                 <tr>
-                    <th colspan="2" class="goods-head">Goods</th>
+                    <th colspan="3" class="goods-head">Goods</th>
                     <th class="text-center">Qty</th>
                     <th class="text-center">Price</th>
                     <th class="text-center subtotal-head" colspan="2">Subtotal</th>
@@ -136,13 +152,12 @@
             </thead>
             <tbody id="myTableBody">
                 <tr style="background-color: white;" id="articulo_1">
-                    <!-- <td style="width:60px;" class="no-print">
-                        <img src="shirt.jpg" style="height:60px;width:60px;object-fit:cover;border:1px solid darkgray;"
-                            onclick="abrirModalImagen(1)" data-url="" id="imagen_1">
-                    </td> -->
                     <td style="width:40px;" class="no-print">
                         <img src="trash.png" style="height:28px;width:28px;padding:.25rem;"
-                            onclick="eliminarArticulo(1)" id="imagen_1" class="trash-icon" />
+                            onclick="eliminarArticulo(1)" class="trash-icon" id="trash_1">
+                    </td>
+                    <td style="width:60px;" class="item-image">
+                        <img src="shirt.jpg" onclick="abrirModalImagen(1)" id="imagen_1" class="img-btn">
                     </td>
                     <td class="description">
                         <div class="row mt-1">
@@ -224,11 +239,51 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="imagen_url" id="imagen_url">
+                    <div class="card p-2" id="paste_area">
+                        <p style="pointer-events:none;font-size:.75rem;" class="text-center text-secondary">
+                            La mayoría de las páginas chinas, incluyendo yupoo, tienen<br>protección ante la carga
+                            de imágenes desde una pagina externa.<br>La única forma de usarlas es
+                            con el portapapeles.<br>Copiá la imagen que quieras usar y pegala acá.
+                        </p>
+                        <img src="" alt="" id="paste_image" height="100"
+                            style="object-fit:contain;pointer-events:none;">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="cambiarImagen()">Agregar</button>
+                    <button type="button" class="btn btn-primary" onclick="cambiarImagen()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal cambiar logo -->
+    <div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoModalLabel">Cambiar logo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card p-2" id="paste_area">
+                        <img class="logo-imagen" src="proveedor_kotofans.png" alt=""
+                            onclick="confirmarLogo('proveedor_kotofans.png')">
+                        <img class="logo-imagen" src="proveedor_kitmm.png" alt=""
+                            onclick="confirmarLogo('proveedor_kitmm.png')">
+                        <img class="logo-imagen" src="proveedor_kkfoo.png" alt=""
+                            onclick="confirmarLogo('proveedor_kkfoo.png')">
+                        <img class="logo-imagen" src="proveedor_gmkits.jpg" alt=""
+                            onclick="confirmarLogo('proveedor_gmkits.jpg')">
+                        <img class="logo-imagen" src="proveedor_grkits.jpg" alt=""
+                            onclick="confirmarLogo('proveedor_grkits.jpg')">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -499,13 +554,16 @@ Argentina</textarea>
             /*
                 <td style="width:60px;">
                     <img src="shirt.jpg" style="height:60px;width:60px;object-fit:cover;border:1px solid darkgray;"
-                        onclick="abrirModalImagen(` + contador + `)" data-url="" id="imagen_` + contador + `"/>
+                        onclick="abrirModalImagen(` + contador + `)" id="imagen_` + contador + `"/>
                 </td>
             */
 
             item.innerHTML = `<td style="width:40px;" class="no-print">
                     <img src="trash.png" style="height:28px;width:28px;padding:.25rem;"
-                        onclick="eliminarArticulo(` + contador + `)" id="imagen_` + contador + `" class="trash-icon"/>
+                        onclick="eliminarArticulo(` + contador + `)" class="trash-icon" id="trash_` + contador + `">
+                </td>
+                <td style="width:60px;" class="item-image">
+                    <img src="shirt.jpg" onclick="abrirModalImagen(` + contador + `)" data-url="" id="imagen_` + contador + `" class="img-btn">
                 </td>
                 <td class="description">
                     <div class="row mt-1">
@@ -558,11 +616,10 @@ Argentina</textarea>
                 if (item) {
                     let itemtotal = item.value;
                     cuenta = parseFloat(cuenta) + parseFloat(itemtotal);
-                    document.getElementById('imagen_' + i).style.pointerEvents = total_items > 1 ? 'all' : 'none';
-                    document.getElementById('imagen_' + i).style.opacity = total_items > 1 ? 1 : 0.5;
+                    document.getElementById('trash_' + i).style.pointerEvents = total_items > 1 ? 'all' : 'none';
+                    document.getElementById('trash_' + i).style.opacity = total_items > 1 ? 1 : 0.5;
                 }
             }
-
 
             subtotal.innerHTML = cuenta.toFixed(2);
 
@@ -581,9 +638,11 @@ Argentina</textarea>
 
         function abrirModalImagen(indice) {
             currentImageIndex = indice;
-            let url = document.getElementById('imagen_' + indice).getAttribute('data-url');
-            $('#imagen_url').val(url);
-            $('#imageModal').modal('toggle')
+            let url = document.getElementById('imagen_' + indice).getAttribute('src');
+
+            document.getElementById('paste_image').src = url;
+
+            $('#imageModal').modal('toggle');
         }
 
         function getImageName(url) {
@@ -592,35 +651,53 @@ Argentina</textarea>
             return filename;
         }
 
+        document.getElementById('paste_area').onpaste = function (event) {
+            cargarImagenPortapapeles(event);
+        }
+
+        document.getElementById('paste_area').onpaste = function (event) {
+            cargarImagenPortapapeles(event);
+        }
+
+        function cargarImagenPortapapeles(event) {
+            // use event.originalEvent.clipboard for newer chrome versions
+            var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            //console.log(JSON.stringify(items)); // will give you the mime types
+            // find pasted image among pasted items
+            var blob = null;
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf("image") === 0) {
+                    blob = items[i].getAsFile();
+                }
+            }
+            // load image if there is a pasted image
+            if (blob !== null) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    //console.log(event.target.result); // data url!
+                    document.getElementById("paste_image").src = event.target.result;
+                };
+                reader.readAsDataURL(blob);
+            }
+        }
+
         function cambiarImagen() {
-            let url = document.getElementById('imagen_url').value;
-
-            if (url.trim() == "") {
-                $('#imageModal').modal('toggle');
-                return;
-            }
-
-            let filename = getImageName(url);
-            let extension = url.split('.').pop();
-
-            console.log(filename, extension);
-
-            if (['jpg', 'jpeg', 'png', 'svg', 'webp'].includes(extension)) {
-                let name = filename.replace('.' + extension, '');
-                let urlpath = url.replace(name + '.' + extension, 'small.' + extension)
-
-                document.getElementById('imagen_' + currentImageIndex).setAttribute('src', urlpath)
-                document.getElementById('imagen_' + currentImageIndex).setAttribute('data-origin', url.replace('https:', '').replace('http:', ''))
-            }
-
+            document.getElementById("imagen_" + currentImageIndex).src = document.getElementById("paste_image").src;
             $('#imageModal').modal('toggle');
-
         }
 
         $('#imageModal').on('shown.bs.modal', function () {
-            $('#imagen_url').trigger('focus')
+            $('#paste_area').trigger('focus')
         })
 
+        function cambiarLogo() {
+            $('#logoModal').modal('toggle');
+        }
+
+        function confirmarLogo(logourl) {
+            document.getElementById("logo_img").src = logourl;
+            $('#logoModal').modal('toggle');
+        }
 
 
         const email_nombre = document.getElementById('email_nombre');
