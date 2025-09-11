@@ -139,7 +139,7 @@
 
         <div class="d-flex justify-content-between">
             <div class="ml-3 mt-3" style="background-color: #ffffa1; padding: .25rem;">
-                <img src="assets/proveedores/proveedor_kitmm.png" height="68" style="cursor:pointer;"
+                <img src="assets/proveedores/proveedor_tuviejaentanga.png" height="68" style="cursor:pointer;"
                     onclick="cambiarLogo()" id="logo_img">
             </div>
             <div class="mt-3 mr-3">
@@ -310,6 +310,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="card p-2" id="paste_area">
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_tuviejaentanga.png" alt=""
+                            onclick="confirmarLogo('proveedor_tuviejaentanga.png')">
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_aduaneroputo.png" alt=""
+                            onclick="confirmarLogo('proveedor_aduaneroputo.png')">
                         <img class="logo-imagen" src="assets/proveedores/proveedor_kotofans.png" alt=""
                             onclick="confirmarLogo('proveedor_kotofans.png')">
                         <img class="logo-imagen" src="assets/proveedores/proveedor_kitmm.png" alt=""
@@ -786,7 +790,6 @@ Argentina</textarea>
 
     <!-- JAVASCRIPT PARA GENERAR PDF -->
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
         function generatePDF() {
             var divContents = document.documentElement.outerHTML;
