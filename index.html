@@ -60,6 +60,25 @@
             cursor: pointer;
         }
 
+        .product-img {
+            object-fit: contain;
+            /* pointer-events: none; */
+            height: 100px;
+            border: 2px solid lightgray;
+            margin: .5rem;
+            cursor: pointer;
+        }
+
+        .product-img.clipboard {
+            border: 2px solid red
+        }
+
+        .clipboard-text {
+            font-size: .75rem;
+            text-align: center;
+            height: .75rem;
+        }
+
         @media print {
 
             .only-print {
@@ -99,7 +118,7 @@
 
 </head>
 
-<body>
+<body style="min-width:1000px" id="mybody">
 
 
     <div class="card container mt-4 no-print" style="background-color: #ffdada;">
@@ -108,6 +127,8 @@
             Una vez que termines de editar usá la funcion de imprimir del navegador.
         </h5>
         <span class="mb-3">Los mensajes y botones se ocultan automaticamente al imprimir</span>
+
+        <span class="btn btn-sm btn-danger mb-3" onclick="generatePDF()">Generar PDF</span>
     </div>
 
 
@@ -115,13 +136,13 @@
 
         <div class="d-flex justify-content-between">
             <div class="ml-3 mt-3" style="background-color: #ffffa1; padding: .25rem;">
-                <img src="proveedor_kitmm.png" height="68" style="cursor:pointer;" onclick="cambiarLogo()"
-                    id="logo_img">
+                <img src="assets/proveedores/proveedor_kitmm.png" height="68" style="cursor:pointer;"
+                    onclick="cambiarLogo()" id="logo_img">
             </div>
             <div class="mt-3 mr-3">
                 <div class="d-flex justify-content-end" style="font-weight: 600;">
                     <div>INVOICE</div>
-                    <input class="ml-2 text-right" type="text" value="GE2025030451716995017"
+                    <input class="ml-2 text-right" type="text" value="GE2025030451716995017" id="invoice_number"
                         style="width: 200px; height: 24px; font-weight: 600;" />
                 </div>
                 <div class="d-flex justify-content-end no-print">
@@ -153,17 +174,19 @@
             <tbody id="myTableBody">
                 <tr style="background-color: white;" id="articulo_1">
                     <td style="width:40px;" class="no-print">
-                        <img src="trash.png" style="height:28px;width:28px;padding:.25rem;"
+                        <img src="assets/iconos/trash.png" style="height:28px;width:28px;padding:.25rem;"
                             onclick="eliminarArticulo(1)" class="trash-icon" id="trash_1">
                     </td>
                     <td style="width:60px;" class="item-image">
-                        <img src="shirt.jpg" onclick="abrirModalImagen(1)" id="imagen_1" class="img-btn">
+                        <img src="assets/productos/camiseta.jpg" onclick="abrirModalImagen(1)" id="imagen_1"
+                            class="img-btn">
                     </td>
                     <td class="description">
                         <div class="row mt-1">
                             <input class="col-12" type="text" value="Jersey Barcelona 18/19 AAA Quality"
-                                style="height: 24px;">
-                            <input class="col-12 text-secondary" type="text" value="Size: XL" style="height: 24px;">
+                                id="item_description" style="height: 24px;">
+                            <input class="col-12 text-secondary" type="text" value="Size: XL"
+                                id="item_description_secondary" style="height: 24px;">
                         </div>
                     </td>
                     <td class="only-print"></td>
@@ -231,7 +254,7 @@
     <!-- Modal cambiar imagen -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="width: fit-content;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="imageModalLabel">Cambiar imagen</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -245,13 +268,27 @@
                             de imágenes desde una pagina externa.<br>La única forma de usarlas es
                             con el portapapeles.<br>Copiá la imagen que quieras usar y pegala acá.
                         </p>
-                        <img src="" alt="" id="paste_image" height="100"
-                            style="object-fit:contain;pointer-events:none;">
+                        <div class="d-flex">
+                            <div>
+                                <img src="" id="paste_image" class="product-img clipboard">
+                                <p class="clipboard-text">Portapapeles</p>
+                            </div>
+
+                            <img src="assets/productos/camiseta.jpg" class="product-img"
+                                onclick="cambiarImagen('camiseta')">
+                            <img src="assets/productos/short.jpg" class="product-img" onclick="cambiarImagen('short')">
+                            <img src="assets/productos/campera.jpg" class="product-img"
+                                onclick="cambiarImagen('campera')">
+                            <img src="assets/productos/botines.jpg" class="product-img"
+                                onclick="cambiarImagen('botines')">
+
+
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="cambiarImagen()">Aceptar</button>
+                    <button type="button" class="btn btn-primary" onclick="cambiarImagen('')">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -270,17 +307,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="card p-2" id="paste_area">
-                        <img class="logo-imagen" src="proveedor_kotofans.png" alt=""
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_kotofans.png" alt=""
                             onclick="confirmarLogo('proveedor_kotofans.png')">
-                        <img class="logo-imagen" src="proveedor_kitmm.png" alt=""
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_kitmm.png" alt=""
                             onclick="confirmarLogo('proveedor_kitmm.png')">
-                        <img class="logo-imagen" src="proveedor_kkfoo.png" alt=""
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_kkfoo.png" alt=""
                             onclick="confirmarLogo('proveedor_kkfoo.png')">
-                        <img class="logo-imagen" src="proveedor_gmkits.jpg" alt=""
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_gmkits.jpg" alt=""
                             onclick="confirmarLogo('proveedor_gmkits.jpg')">
-                        <img class="logo-imagen" src="proveedor_grkits.jpg" alt=""
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_grkits.jpg" alt=""
                             onclick="confirmarLogo('proveedor_grkits.jpg')">
-                        <img class="logo-imagen" src="proveedor_star.png" alt=""
+                        <img class="logo-imagen" src="assets/proveedores/proveedor_star.png" alt=""
                             onclick="confirmarLogo('proveedor_star.png')">
                     </div>
                 </div>
@@ -308,7 +345,7 @@
         </style>
 
         <div class="d-flex justify-content-between">
-            <img src="logo_gmail.png" width="143" height="59" alt="Gmail" style="margin-left:-6px">
+            <img src="assets/email/logo_gmail.png" width="143" height="59" alt="Gmail" style="margin-left:-6px">
 
             <div class="d-flex no-print">
                 <input class="mt-3 text-center" type="text" id="email_nombre" value="Nombre Apellido"
@@ -354,13 +391,14 @@
                     id="mail_text2">Hola, Matias Daniel Perez Jazbec
                 </div>
                 <div class="text-center" style="padding:24px 24px 40px 24px">
-                    <img src="logo_paypal.png" width="51" height="51">
+                    <img src="assets/email/logo_paypal.png" width="51" height="51">
                 </div>
 
                 <div class="text-center">
                     <p style="font-size:42px;line-height:46px;font-weight:900;color:#000;margin:0">
                         Vos enviaste $<span class="mr-3 ml-3" id="mail_total1">0,00</span>USD<br>
-                        <input type="text" value="a 黄​国辉" class="text-center" style="font-weight:900">
+                        <input type="text" value="a 黄​国辉" class="text-center" style="font-weight:900"
+                            id="email_destinatario">
                     </p>
                 </div>
 
@@ -421,7 +459,7 @@
                 </p>
 
                 <p style="font-size:14px;line-height:20px;color:#000000;margin:1rem 0 0 0;word-break:break-word">
-                    <textarea rows="4" style="width: 100%;">Av Rivadavia 12345
+                    <textarea rows="4" style="width: 100%;" id="email_direccion_envio">Av Rivadavia 12345
 CP: 1000 - CABA
 CIUDAD AUTONOMA DE BUENOS AIRES
 Argentina</textarea>
@@ -443,7 +481,7 @@ Argentina</textarea>
                 <hr style="border-top:1px solid #d6d6d6; margin: 2rem -6px 1.25rem;">
 
                 <div class="bg-white d-flex p-3" style="border-radius: 1rem;">
-                    <img src="glyph_security_blue.png" style="display:block; border:0;" width="90">
+                    <img src="assets/email/glyph_security_blue.png" style="display:block; border:0;" width="90">
                     <div style="margin-left: 3rem;">
                         <p style="font-weight:500;font-size:20px;line-height:28px;color:#000000;margin:0 0 .9rem">
                             <span>Protección al Comprador de PayPal</span>
@@ -456,7 +494,7 @@ Argentina</textarea>
                 </div>
 
                 <div class="text-center" style="padding:50px 24px 30px 24px">
-                    <img src="logo_paypal.png" width="40" height="40">
+                    <img src="assets/email/logo_paypal.png" width="40" height="40">
                 </div>
 
                 <hr style="border-top:1px solid #d6d6d6; margin: 0rem -6px 1.25rem;">
@@ -471,10 +509,13 @@ Argentina</textarea>
                 </div>
 
                 <div class="text-center">
-                    <img src="footer-social-icons_x.png" width="32" height="32" style="margin:0 10px">
-                    <img src="footer-social-icons_instagram.png" width="32" height="32" style="margin:0 10px">
-                    <img src="footer-social-icons_facebook.png" width="32" height="32" style="margin:0 10px">
-                    <img src="footer-social-icons_linkedin.png" width="32" height="32" style="margin:0 10px">
+                    <img src="assets/email/footer-social-icons_x.png" width="32" height="32" style="margin:0 10px">
+                    <img src="assets/email/footer-social-icons_instagram.png" width="32" height="32"
+                        style="margin:0 10px">
+                    <img src="assets/email/footer-social-icons_facebook.png" width="32" height="32"
+                        style="margin:0 10px">
+                    <img src="assets/email/footer-social-icons_linkedin.png" width="32" height="32"
+                        style="margin:0 10px">
                 </div>
 
                 <p style="font-size:12px;margin:1.25rem 0 1rem 0; line-height: 16px;">
@@ -507,7 +548,7 @@ Argentina</textarea>
 
 
 
-
+    <!-- Funciones varias -->
 
     <script>
         const body = document.getElementById('myTableBody');
@@ -561,11 +602,11 @@ Argentina</textarea>
             */
 
             item.innerHTML = `<td style="width:40px;" class="no-print">
-                    <img src="trash.png" style="height:28px;width:28px;padding:.25rem;"
+                    <img src="assets/iconos/trash.png" style="height:28px;width:28px;padding:.25rem;"
                         onclick="eliminarArticulo(` + contador + `)" class="trash-icon" id="trash_` + contador + `">
                 </td>
                 <td style="width:60px;" class="item-image">
-                    <img src="shirt.jpg" onclick="abrirModalImagen(` + contador + `)" data-url="" id="imagen_` + contador + `" class="img-btn">
+                    <img src="assets/productos/camiseta.jpg" onclick="abrirModalImagen(` + contador + `)" data-url="" id="imagen_` + contador + `" class="img-btn">
                 </td>
                 <td class="description">
                     <div class="row mt-1">
@@ -640,9 +681,9 @@ Argentina</textarea>
 
         function abrirModalImagen(indice) {
             currentImageIndex = indice;
-            let url = document.getElementById('imagen_' + indice).getAttribute('src');
-
-            document.getElementById('paste_image').src = url;
+            //let url = document.getElementById('imagen_' + indice).getAttribute('src');
+            //document.getElementById('paste_image').src = url;
+            document.getElementById('paste_image').src = 'assets/productos/portapapeles.jpg';
 
             $('#imageModal').modal('toggle');
         }
@@ -657,7 +698,7 @@ Argentina</textarea>
             cargarImagenPortapapeles(event);
         }
 
-        document.getElementById('paste_area').onpaste = function (event) {
+        document.getElementById('paste_image').onpaste = function (event) {
             cargarImagenPortapapeles(event);
         }
 
@@ -683,8 +724,16 @@ Argentina</textarea>
             }
         }
 
-        function cambiarImagen() {
-            document.getElementById("imagen_" + currentImageIndex).src = document.getElementById("paste_image").src;
+        function cambiarImagen(id) {
+            if (id == '') {
+                console.log(document.getElementById("paste_image").src);
+                if (!document.getElementById("paste_image").src.includes('portapapeles.jpg')) {
+                    document.getElementById("imagen_" + currentImageIndex).src = document.getElementById("paste_image").src;
+                }
+            } else {
+                document.getElementById("imagen_" + currentImageIndex).src = 'assets/productos/' + id + '.jpg';
+            }
+
             $('#imageModal').modal('toggle');
         }
 
@@ -697,7 +746,7 @@ Argentina</textarea>
         }
 
         function confirmarLogo(logourl) {
-            document.getElementById("logo_img").src = logourl;
+            document.getElementById("logo_img").src = 'assets/proveedores/' + logourl;
             $('#logoModal').modal('toggle');
         }
 
@@ -729,6 +778,25 @@ Argentina</textarea>
         cambiarFecha();
 
     </script>
+
+
+
+    <!-- JAVASCRIPT PARA GENERAR PDF -->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function generatePDF() {
+            var divContents = document.documentElement.outerHTML;
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>DIV Contents</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+
 
 </body>
 
