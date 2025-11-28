@@ -395,7 +395,7 @@
 
                 <div class="text-center"
                     style="color:#929496;font-weight:450;font-size:12px;line-height:9px;padding:10px 0px; background-color: #F5F7FA;"
-                    id="mail_text2">Hola, Matias Daniel Perez Jazbec
+                    id="mail_text2">Hola Pelotudo
                 </div>
                 <div class="text-center" style="padding:24px 24px 40px 24px">
                     <img src="assets/email/logo_paypal.png" width="51" height="51">
@@ -440,15 +440,18 @@
                     </div>
                 </div>
                 <br>
-                <p style="font-size: 14px; line-height: 16px;">Pagado con</p>
+                <p style="font-size: 14px; line-height: 16px; margin-bottom: 12px;">Pagado con</p>
                 <div class="d-flex justify-content-between" style="font-size: 14px; line-height: 16px;">
-                    <div>MASTER_CARD x-0471</div>
-                    <div class="text-right">
+                    <div>
+                        <input class="m-0" type="text" id="tarjeta_credito" value="MASTER_CARD x-0471"
+                            style="width: 250px; height: 24px; font-weight: 400; color: #777; font-size: 13px;" />
+                    </div>
+                    <div class="text-right" style="margin-top:4px;">
                         $ <span id="mail_total3" style="font-size: 14px">$ 0</span> USD
                     </div>
                 </div>
 
-                <hr style="border-top:1px solid #c6c6c6; margin: 2rem -6px 0;">
+                <hr style="border-top:1px solid #c6c6c6; margin: 28px -6px 0 0;">
 
                 <div class="d-flex justify-content-between mt-3" style="font-size: 14px; line-height: 16px;">
                     <div><strong>Pagaste</strong></div>
@@ -791,7 +794,7 @@ Argentina</textarea>
     <!-- JAVASCRIPT PARA GENERAR PDF -->
 
     <script type="text/javascript">
-        function generatePDF() {
+        /* function generatePDF() {
             var divContents = document.documentElement.outerHTML;
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title>DIV Contents</title>');
@@ -800,6 +803,51 @@ Argentina</textarea>
             printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.print();
+        } */
+
+        function generatePDF() {
+            // Clonar todo el documento
+            let doc = document.documentElement.cloneNode(true);
+
+            // Sincronizar inputs
+            doc.querySelectorAll('input, textarea, select').forEach((el, i) => {
+                const original = document.querySelectorAll('input, textarea, select')[i];
+
+                if (el.tagName === "INPUT") {
+                    if (el.type === "checkbox" || el.type === "radio") {
+                        if (original.checked) el.setAttribute("checked", "checked");
+                        else el.removeAttribute("checked");
+                    } else {
+                        el.setAttribute("value", original.value);
+                    }
+                }
+
+                if (el.tagName === "TEXTAREA") {
+                    el.textContent = original.value;
+                }
+
+                if (el.tagName === "SELECT") {
+                    el.value = original.value;
+
+                    // Marcar opción seleccionada
+                    el.querySelectorAll("option").forEach(opt => {
+                        if (opt.value === original.value)
+                            opt.setAttribute("selected", "selected");
+                        else
+                            opt.removeAttribute("selected");
+                    });
+                }
+            });
+
+            // Abrir ventana para imprimir
+            const printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<!DOCTYPE html>');
+            printWindow.document.write(doc.outerHTML);
+            printWindow.document.close();
+
+            printWindow.onload = function () {
+                printWindow.print();
+            };
         }
     </script>
 
