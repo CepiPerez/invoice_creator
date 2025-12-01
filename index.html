@@ -308,24 +308,47 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <style>
+                    .image-selector {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 20px;
+                        justify-content: center;
+                        flex-basis: calc(50% - 10px);
+                        flex-grow: 1;
+                        box-sizing: border-box;
+                    }
+
+                    .image-selector img {
+                        flex: 1;
+                        width: 30%;
+                        min-width: 30%;
+                        max-width: 30%;
+                        padding: 15px;
+                    }
+                </style>
                 <div class="modal-body">
                     <div class="card p-2" id="paste_area">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_tuviejaentanga.png" alt=""
-                            onclick="confirmarLogo('proveedor_tuviejaentanga.png')">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_aduaneroputo.png" alt=""
-                            onclick="confirmarLogo('proveedor_aduaneroputo.png')">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_kotofans.png" alt=""
-                            onclick="confirmarLogo('proveedor_kotofans.png')">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_kitmm.png" alt=""
-                            onclick="confirmarLogo('proveedor_kitmm.png')">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_kkfoo.png" alt=""
-                            onclick="confirmarLogo('proveedor_kkfoo.png')">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_gmkits.jpg" alt=""
-                            onclick="confirmarLogo('proveedor_gmkits.jpg')">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_grkits.jpg" alt=""
-                            onclick="confirmarLogo('proveedor_grkits.jpg')">
-                        <img class="logo-imagen" src="assets/proveedores/proveedor_star.png" alt=""
-                            onclick="confirmarLogo('proveedor_star.png')">
+                        <div class="image-selector">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_tuviejaentanga.png" alt=""
+                                onclick="confirmarLogo('proveedor_tuviejaentanga.png')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_aduaneroputo.png" alt=""
+                                onclick="confirmarLogo('proveedor_aduaneroputo.png')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_kotofans.png" alt=""
+                                onclick="confirmarLogo('proveedor_kotofans.png')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_kitmm.png" alt=""
+                                onclick="confirmarLogo('proveedor_kitmm.png')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_kkfoo.png" alt=""
+                                onclick="confirmarLogo('proveedor_kkfoo.png')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_gmkits.jpg" alt=""
+                                onclick="confirmarLogo('proveedor_gmkits.jpg')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_grkits.jpg" alt=""
+                                onclick="confirmarLogo('proveedor_grkits.jpg')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_eric.png" alt=""
+                                onclick="confirmarLogo('proveedor_eric.png')">
+                            <img class="logo-imagen" src="assets/proveedores/proveedor_star.png" alt=""
+                                onclick="confirmarLogo('proveedor_star.png')">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
